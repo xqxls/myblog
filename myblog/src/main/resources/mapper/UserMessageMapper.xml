@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMessageMapper">
+
+    <select id="selectMessages" resultType="com.example.vo.UserMessageVo">
+
+        SELECT
+            m.*,
+            u.username AS fromUserName,
+            p.title AS postTitle
+        FROM
+            user_message m
+                LEFT JOIN
+                user u
+                on u.id = m.from_user_id
+                LEFT JOIN
+                post p
+                on p.id = m.post_id
+
+            ${ew.customSqlSegment}
+
+    </select>
+</mapper>
